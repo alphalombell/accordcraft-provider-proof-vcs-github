@@ -1,0 +1,338 @@
+name: AccordCraft 17A.3 External BuildProof and Release Passport Proof
+
+on:
+  push:
+    branches:
+      - proof/17a3-buildproof-a1
+
+permissions:
+  contents: read
+
+concurrency:
+  group: accordcraft-17a3-buildproof-proof
+  cancel-in-progress: false
+
+jobs:
+  external-buildproof:
+    name: AccordCraft External BuildProof Proof
+    runs-on: ubuntu-latest
+    environment: accordcraft-ci-proof-approval
+    timeout-minutes: 15
+    env:
+      TASK_ID: AC-FSSOC-SETUP-17A.3
+      VCS_PROVIDER_ID: provider::github::vcs
+      CI_PROVIDER_ID: provider::github-actions::cicd
+      CANONICAL_SEMANTIC_DIGEST: 147EF2E166EAD754E8AC21CAC46EAD00A4DD63AF04D3437F31A6CE3EF134BA97
+      CANONICAL_AUTHORITIES_B64: W3sicm9sZSI6IkJVSUxEX0NPTlRSQUNUX1BST1ZJREVSX05FVVRSQUxfVFJBTlNMQVRJT04iLCJwYXRoIjoiQzpcXFVzZXJzXFxvbWVnYVxcQWN0b3JhU3R1ZGlvXFxhY2NvcmQtY3JhZnQtdGVjaG5vbG9naWVzXFxhY2NvcmRjcmFmdC1lbmdpbmVlcmluZy1nb3Zlcm5hbmNlXFxzdGFuZGFyZHNcXHNlcGFyYXRpb24tb2YtY29uY2VybnNcXGFjY29yZGNyYWZ0XFxnb3Zlcm5hbmNlXFxBQy1GU1NPQy1TRVRVUC0xMUEuMTJfUFJPVklERVItTkVVVFJBTC1CVUlMRC1DT05UUkFDVC1UUkFOU0xBVElPTl92MS4wLmpzb24iLCJzaGEyNTYiOiI3NTk1ODhCMjQ1NTYzRkU1RjExQjA4QkZCMDQ4ODM0MUQ4NkU3MTgwNDE3MUExQUQyMEM0MTAwOTVEOEVFOEQ0In0seyJyb2xlIjoiQlVJTERfQ09OVFJBQ1RfVFJBTlNMQVRJT05fU0NIRU1BIiwicGF0aCI6IkM6XFxVc2Vyc1xcb21lZ2FcXEFjdG9yYVN0dWRpb1xcYWNjb3JkLWNyYWZ0LXRlY2hub2xvZ2llc1xcYWNjb3JkY3JhZnQtZW5naW5lZXJpbmctZ292ZXJuYW5jZVxcc3RhbmRhcmRzXFxzZXBhcmF0aW9uLW9mLWNvbmNlcm5zXFxhY2NvcmRjcmFmdFxcc2NoZW1hc1xcQUMtRlNTT0MtU0VUVVAtMTFBLjEyX1BST1ZJREVSLU5FVVRSQUwtQlVJTEQtQ09OVFJBQ1QtVFJBTlNMQVRJT04uc2NoZW1hLnYxLjAuanNvbiIsInNoYTI1NiI6IkQ5NTA0NjE4RkQwMkZGOUY4NEExQzJFMzhFMTE5QkZCRTMwMjJDQjkxNkEwQkMxNDMyODhDNzRCMjEyOTQwRDAifSx7InJvbGUiOiJCVUlMRFBST09GX0dPVkVSTkFOQ0VfQVVUSE9SSVRZIiwicGF0aCI6IkM6XFxVc2Vyc1xcb21lZ2FcXEFjdG9yYVN0dWRpb1xcYWNjb3JkLWNyYWZ0LXRlY2hub2xvZ2llc1xcYWNjb3JkY3JhZnQtZW5naW5lZXJpbmctZ292ZXJuYW5jZVxcc3RhbmRhcmRzXFxzZXBhcmF0aW9uLW9mLWNvbmNlcm5zXFxhY2NvcmRjcmFmdFxcZ292ZXJuYW5jZVxcQUMtRlNTT0MtU0VUVVAtMTFDLjZfRVhURU5TSU9OLUJVSUxEUFJPT0YtQVVESVQtSU5DSURFTlQtUk9MTEJBQ0stUVVBUkFOVElORS1SRVZPQ0FUSU9OLUVWSURFTkNFLUNPTlRSQUNUX3YxLjAuanNvbiIsInNoYTI1NiI6IkU4MkEzRDI4NTJGODdEQzIyOEREOTcxNUM5Qjk5QjJGQ0JERURBMkY4Q0E0REE0Q0RFOTNEQTJFRDJERkU5NzcifSx7InJvbGUiOiJCVUlMRFBST09GX0dPVkVSTkFOQ0VfU0NIRU1BIiwicGF0aCI6IkM6XFxVc2Vyc1xcb21lZ2FcXEFjdG9yYVN0dWRpb1xcYWNjb3JkLWNyYWZ0LXRlY2hub2xvZ2llc1xcYWNjb3JkY3JhZnQtZW5naW5lZXJpbmctZ292ZXJuYW5jZVxcc3RhbmRhcmRzXFxzZXBhcmF0aW9uLW9mLWNvbmNlcm5zXFxhY2NvcmRjcmFmdFxcc2NoZW1hc1xcQUMtRlNTT0MtU0VUVVAtMTFDLjZfRVhURU5TSU9OLUJVSUxEUFJPT0YtQVVESVQtSU5DSURFTlQtUk9MTEJBQ0stUVVBUkFOVElORS1SRVZPQ0FUSU9OLUVWSURFTkNFLUNPTlRSQUNULnNjaGVtYS52MS4wLmpzb24iLCJzaGEyNTYiOiJENTVEOTI1OTdDODE2MjVCQzA2MDc3OTlGRDBGMUE2ODc0QTMzQjM5RkIwMTBEN0E0N0Q3MjlFMzhCQ0RDOTlEIn0seyJyb2xlIjoiQlVJTERQUk9PRl9WRVJJRklDQVRJT05fV1RUIiwicGF0aCI6IkM6XFxVc2Vyc1xcb21lZ2FcXEFjdG9yYVN0dWRpb1xcYWNjb3JkLWNyYWZ0LXRlY2hub2xvZ2llc1xcYWNjb3JkY3JhZnQtZW5naW5lZXJpbmctZ292ZXJuYW5jZVxcc3RhbmRhcmRzXFx3dHRzXFxidWlsZHByb29mLXZlcmlmaWNhdGlvblxcQUMtQlVJTERQUk9PRi1WRVJJRklDQVRJT04tV1RULXYwLjFfUkVWSUVXRURfQVBQUk9WRUQubWQiLCJzaGEyNTYiOiJFMDg2NkY4RDgzQUQ3RDJERUYzOUQwQjE4RDU3NjIyNDBEQTAyQjc4RDc3QjdCQzVBOTAzQThCRjczMDRCNjYzIn0seyJyb2xlIjoiUkVMRUFTRV9QQVNTUE9SVF9BQ0NFU1NfQ09OVFJBQ1QiLCJwYXRoIjoiQzpcXFVzZXJzXFxvbWVnYVxcQWN0b3JhU3R1ZGlvXFxhY2NvcmQtY3JhZnQtdGVjaG5vbG9naWVzXFxhY2NvcmRjcmFmdFxccGFja2FnZXNcXGludGFrZS1jb250cmFjdHNcXGdvdmVybmVkXFxpbnRlcmZhY2UtY29udHJhY3RzXFxyZWxlYXNlLXBhc3Nwb3J0LWFjY2Vzcy5qc29uIiwic2hhMjU2IjoiNTQxOEZGM0YzODY5Q0M5ODFCMTFBQzZERjI3RDVENzJGQjk0MUQ4NzEyNEMxRTU3QkE0MTU0RDMxQkYxNTEyMiJ9LHsicm9sZSI6IlJFTEVBU0VfUEFTU1BPUlRfUk9VVEVfQ09OVFJBQ1QiLCJwYXRoIjoiQzpcXFVzZXJzXFxvbWVnYVxcQWN0b3JhU3R1ZGlvXFxhY2NvcmQtY3JhZnQtdGVjaG5vbG9naWVzXFxhY2NvcmRjcmFmdFxccGFja2FnZXNcXGludGFrZS1jb250cmFjdHNcXGdvdmVybmVkXFxyb3V0ZS1jb250cmFjdHNcXHJlbGVhc2VfcGFzc3BvcnQuanNvbiIsInNoYTI1NiI6IkU1ODhDOUUxRDUwM0EwMEMxQTI0QzM3N0NGMzQxOUIwMzNGOUY0NTY5RUMwNjIwMkQxMTBEOTE1NjA4MEFBNjkifSx7InJvbGUiOiJCVUlMRFBST09GX0FVVEhPUklUQVRJVkVfU0NIRU1BX1JFRkVSRU5DRSIsInBhdGgiOiJDOlxcVXNlcnNcXG9tZWdhXFxBY3RvcmFTdHVkaW9cXGFjY29yZC1jcmFmdC10ZWNobm9sb2dpZXNcXGFjY29yZGNyYWZ0XFxwYWNrYWdlc1xcYnVpbGRwcm9vZi1jb250cmFjdHNcXGF1dGhvcml0YXRpdmUtc2NoZW1hLXJlZmVyZW5jZS5qc29uIiwic2hhMjU2IjoiMzRBRDEwNUIwNzJBRUNDQkUwRUFCMkFCQTg4NzI2RkVGNDA0Q0Y0OTI1MDE1MkJFQTI3RTNDMDk4NjIzQjI2NSJ9XQ==
+      NATIVE_REFERENCE_VCS_PROVIDER: Forgejo
+      NATIVE_REFERENCE_CI_PROVIDER: Woodpecker
+      PROOF_SCOPE: BOUNDED_SYNTHETIC_NON_CLIENT
+      PRODUCTION_AUTHORITY: "false"
+      CLIENT_DATA: "false"
+
+    steps:
+      - name: Generate provider-neutral Build Contract and BuildProof evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p proof/buildproof proof/release-passport
+
+          printf '%s' "${CANONICAL_AUTHORITIES_B64}" | base64 -d > proof/buildproof/canonical-authorities.json
+
+          python3 - <<'PY'
+          import hashlib, json, os, pathlib
+
+          root = pathlib.Path("proof/buildproof")
+          authorities = json.loads((root / "canonical-authorities.json").read_text(encoding="utf-8"))
+          canonical_digest = os.environ["CANONICAL_SEMANTIC_DIGEST"]
+
+          build_contract = {
+              "schema": "accordcraft.external-provider-build-contract-proof.v1",
+              "task_id": os.environ["TASK_ID"],
+              "proof_scope": os.environ["PROOF_SCOPE"],
+              "canonical_semantic_authority": {
+                  "digest_sha256": canonical_digest,
+                  "authorities": authorities,
+              },
+              "source": {
+                  "repository": os.environ["GITHUB_REPOSITORY"],
+                  "commit_sha": os.environ["GITHUB_SHA"],
+                  "ref": os.environ["GITHUB_REF"],
+              },
+              "provider_substitution": {
+                  "native_reference": {
+                      "vcs_provider": os.environ["NATIVE_REFERENCE_VCS_PROVIDER"],
+                      "ci_provider": os.environ["NATIVE_REFERENCE_CI_PROVIDER"],
+                      "canonical_semantic_digest_sha256": canonical_digest,
+                  },
+                  "external_proof": {
+                      "vcs_provider": os.environ["VCS_PROVIDER_ID"],
+                      "ci_provider": os.environ["CI_PROVIDER_ID"],
+                      "canonical_semantic_digest_sha256": canonical_digest,
+                  },
+                  "canonical_semantics_stable": True,
+              },
+              "production_authority": False,
+              "client_data": False,
+          }
+
+          (root / "build-contract.json").write_text(
+              json.dumps(build_contract, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+
+          build_contract_digest = hashlib.sha256(
+              (root / "build-contract.json").read_bytes()
+          ).hexdigest().upper()
+
+          limitations = {
+              "schema": "accordcraft.provider-specific-limitations-and-evidence-quality.v1",
+              "task_id": os.environ["TASK_ID"],
+              "provider_path": {
+                  "vcs": os.environ["VCS_PROVIDER_ID"],
+                  "ci": os.environ["CI_PROVIDER_ID"],
+              },
+              "limitations": [
+                  "Dedicated public synthetic proof repository only; no client repository authority.",
+                  "GitHub Actions support remains bounded to the approved CONDITIONAL proof profile.",
+                  "This proof does not grant production authority.",
+                  "This proof uses no client data.",
+                  "Provider-native workflow, run, job, environment, and artifact identifiers are evidence details and do not replace canonical AccordCraft semantics.",
+              ],
+              "evidence_quality": {
+                  "canonical_semantics": "VERIFIED_BY_EXACT_CANONICAL_AUTHORITY_HASH_BINDING",
+                  "source_commit": "VERIFIED_PROVIDER_NATIVE",
+                  "workflow_identity": "VERIFIED_PROVIDER_NATIVE",
+                  "execution_identity": "VERIFIED_PROVIDER_NATIVE",
+                  "approval_environment": "VERIFIED_PROVIDER_NATIVE",
+                  "artifact_archive_digest": "VERIFIED_PROVIDER_NATIVE_AFTER_UPLOAD",
+                  "tests": "MINIMAL_SYNTHETIC_PROOF_ONLY_NOT_PRODUCT_TEST_SUITE",
+                  "quality_gates": "NOT_PERFORMED_NOT_CLAIMED",
+                  "security_scan": "NOT_PERFORMED_NOT_CLAIMED",
+                  "license_scan": "NOT_PERFORMED_NOT_CLAIMED",
+                  "sbom": "NOT_PRODUCED_NOT_CLAIMED",
+                  "vulnerability_disposition": "NOT_PERFORMED_NOT_CLAIMED",
+                  "provenance_attestation": "TASK_EVIDENCE_ONLY_NOT_SUPPLY_CHAIN_ATTESTATION",
+                  "artifact_signature": "NOT_PRODUCED_NOT_CLAIMED",
+                  "independent_rebuild": "NOT_PERFORMED_NOT_CLAIMED",
+                  "staging_acceptance": "NOT_PERFORMED_NOT_CLAIMED",
+                  "production_authorization": "NOT_REQUESTED_NOT_GRANTED",
+                  "deployment": "NOT_PERFORMED_NOT_CLAIMED",
+                  "rollback": "NOT_PERFORMED_NOT_CLAIMED",
+              },
+          }
+
+          (root / "provider-limitations.json").write_text(
+              json.dumps(limitations, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+
+          buildproof = {
+              "schema": "accordcraft.external-provider-buildproof-proof.v1",
+              "task_id": os.environ["TASK_ID"],
+              "canonical_semantic_digest_sha256": canonical_digest,
+              "build_contract": {
+                  "path": "build-contract.json",
+                  "sha256": build_contract_digest,
+              },
+              "requirement_refs": [os.environ["TASK_ID"]],
+              "source": {
+                  "repository": os.environ["GITHUB_REPOSITORY"],
+                  "commit_sha": os.environ["GITHUB_SHA"],
+                  "ref": os.environ["GITHUB_REF"],
+              },
+              "workflow": {
+                  "name": os.environ["GITHUB_WORKFLOW"],
+                  "workflow_ref": os.environ["GITHUB_WORKFLOW_REF"],
+                  "job": os.environ["GITHUB_JOB"],
+                  "run_id": os.environ["GITHUB_RUN_ID"],
+                  "run_number": os.environ["GITHUB_RUN_NUMBER"],
+                  "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"],
+              },
+              "execution_identity": {
+                  "actor": os.environ["GITHUB_ACTOR"],
+                  "actor_id": os.environ["GITHUB_ACTOR_ID"],
+                  "runner_name": os.environ["RUNNER_NAME"],
+                  "runner_os": os.environ["RUNNER_OS"],
+                  "runner_arch": os.environ["RUNNER_ARCH"],
+              },
+              "provider_path": {
+                  "vcs_provider": os.environ["VCS_PROVIDER_ID"],
+                  "ci_provider": os.environ["CI_PROVIDER_ID"],
+              },
+              "provider_specific_limitations": "provider-limitations.json",
+              "production_authority": False,
+              "client_data": False,
+          }
+
+          (root / "buildproof.json").write_text(
+              json.dumps(buildproof, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+
+          semantic_comparison = {
+              "schema": "accordcraft.provider-substitution-semantic-comparison.v1",
+              "task_id": os.environ["TASK_ID"],
+              "canonical_semantic_digest_sha256": canonical_digest,
+              "native_reference_path": {
+                  "vcs_provider": os.environ["NATIVE_REFERENCE_VCS_PROVIDER"],
+                  "ci_provider": os.environ["NATIVE_REFERENCE_CI_PROVIDER"],
+                  "canonical_semantic_digest_sha256": canonical_digest,
+              },
+              "external_proof_path": {
+                  "vcs_provider": os.environ["VCS_PROVIDER_ID"],
+                  "ci_provider": os.environ["CI_PROVIDER_ID"],
+                  "canonical_semantic_digest_sha256": canonical_digest,
+              },
+              "canonical_build_contract_semantics_stable": True,
+              "canonical_buildproof_semantics_stable": True,
+              "canonical_release_passport_semantics_stable": True,
+              "provider_specific_evidence_isolated": True,
+          }
+
+          (root / "semantic-comparison.json").write_text(
+              json.dumps(semantic_comparison, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+          (
+            cd proof/buildproof
+            sha256sum \
+              canonical-authorities.json \
+              build-contract.json \
+              buildproof.json \
+              semantic-comparison.json \
+              provider-limitations.json \
+              > checksums.sha256
+          )
+
+      - name: Upload immutable BuildProof evidence
+        id: buildproof_upload
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: accordcraft-17a3-buildproof
+          path: proof/buildproof/
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Generate Release Passport from provider-native artifact evidence
+        shell: bash
+        env:
+          BUILDPROOF_ARTIFACT_ID: ${{ steps.buildproof_upload.outputs.artifact-id }}
+          BUILDPROOF_ARTIFACT_URL: ${{ steps.buildproof_upload.outputs.artifact-url }}
+          BUILDPROOF_ARTIFACT_DIGEST: ${{ steps.buildproof_upload.outputs.artifact-digest }}
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import hashlib, json, os, pathlib
+
+          bp_root = pathlib.Path("proof/buildproof")
+          rp_root = pathlib.Path("proof/release-passport")
+          rp_root.mkdir(parents=True, exist_ok=True)
+
+          canonical_digest = os.environ["CANONICAL_SEMANTIC_DIGEST"]
+          build_contract_digest = hashlib.sha256(
+              (bp_root / "build-contract.json").read_bytes()
+          ).hexdigest().upper()
+          buildproof_digest = hashlib.sha256(
+              (bp_root / "buildproof.json").read_bytes()
+          ).hexdigest().upper()
+
+          release_passport = {
+              "schema": "accordcraft.external-provider-release-passport-proof.v1",
+              "task_id": os.environ["TASK_ID"],
+              "proof_scope": os.environ["PROOF_SCOPE"],
+              "canonical_semantic_digest_sha256": canonical_digest,
+              "requirement_refs": [os.environ["TASK_ID"]],
+              "commit_sha": os.environ["GITHUB_SHA"],
+              "repository": os.environ["GITHUB_REPOSITORY"],
+              "build_spec": {
+                  "build_contract_sha256": build_contract_digest,
+                  "buildproof_sha256": buildproof_digest,
+                  "canonical_semantic_digest_sha256": canonical_digest,
+              },
+              "builder_worker_identity": {
+                  "provider": os.environ["CI_PROVIDER_ID"],
+                  "runner_name": os.environ["RUNNER_NAME"],
+                  "runner_os": os.environ["RUNNER_OS"],
+                  "runner_arch": os.environ["RUNNER_ARCH"],
+                  "actor": os.environ["GITHUB_ACTOR"],
+                  "actor_id": os.environ["GITHUB_ACTOR_ID"],
+              },
+              "toolchain_dependencies": {
+                  "github_actions_runner": os.environ["RUNNER_NAME"],
+                  "upload_artifact_action_full_sha": "043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+                  "dependency_lock_scope": "WORKFLOW_ACTION_PIN_ONLY_FOR_SYNTHETIC_PROOF",
+              },
+              "buildproof_artifact": {
+                  "artifact_id": os.environ["BUILDPROOF_ARTIFACT_ID"],
+                  "artifact_url": os.environ["BUILDPROOF_ARTIFACT_URL"],
+                  "artifact_digest_sha256": os.environ["BUILDPROOF_ARTIFACT_DIGEST"],
+              },
+              "verification_disposition": {
+                  "tests": "MINIMAL_SYNTHETIC_PROOF_ONLY_NOT_PRODUCT_TEST_SUITE",
+                  "quality": "NOT_PERFORMED_NOT_CLAIMED",
+                  "security": "NOT_PERFORMED_NOT_CLAIMED",
+                  "licensing": "NOT_PERFORMED_NOT_CLAIMED",
+                  "sbom": "NOT_PRODUCED_NOT_CLAIMED",
+                  "vulnerability": "NOT_PERFORMED_NOT_CLAIMED",
+                  "provenance_attestation": "TASK_EVIDENCE_ONLY_NOT_SUPPLY_CHAIN_ATTESTATION",
+                  "signature": "NOT_PRODUCED_NOT_CLAIMED",
+                  "independent_rebuild": "NOT_PERFORMED_NOT_CLAIMED",
+                  "staging_acceptance": "NOT_PERFORMED_NOT_CLAIMED",
+                  "production_authorization": "NOT_REQUESTED_NOT_GRANTED",
+                  "deployment": "NOT_PERFORMED_NOT_CLAIMED",
+                  "rollback": "NOT_PERFORMED_NOT_CLAIMED",
+              },
+              "provider_substitution": {
+                  "native_reference": {
+                      "vcs_provider": os.environ["NATIVE_REFERENCE_VCS_PROVIDER"],
+                      "ci_provider": os.environ["NATIVE_REFERENCE_CI_PROVIDER"],
+                      "canonical_semantic_digest_sha256": canonical_digest,
+                  },
+                  "external_proof": {
+                      "vcs_provider": os.environ["VCS_PROVIDER_ID"],
+                      "ci_provider": os.environ["CI_PROVIDER_ID"],
+                      "canonical_semantic_digest_sha256": canonical_digest,
+                  },
+                  "canonical_semantics_stable": True,
+              },
+              "production_authority": False,
+              "client_data": False,
+          }
+
+          (rp_root / "release-passport.json").write_text(
+              json.dumps(release_passport, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+          (
+            cd proof/release-passport
+            sha256sum release-passport.json > checksums.sha256
+          )
+
+      - name: Upload immutable Release Passport evidence
+        id: release_passport_upload
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: accordcraft-17a3-release-passport
+          path: proof/release-passport/
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Emit provider artifact identities
+        shell: bash
+        env:
+          BUILDPROOF_ARTIFACT_ID: ${{ steps.buildproof_upload.outputs.artifact-id }}
+          BUILDPROOF_ARTIFACT_DIGEST: ${{ steps.buildproof_upload.outputs.artifact-digest }}
+          RELEASE_PASSPORT_ARTIFACT_ID: ${{ steps.release_passport_upload.outputs.artifact-id }}
+          RELEASE_PASSPORT_ARTIFACT_DIGEST: ${{ steps.release_passport_upload.outputs.artifact-digest }}
+        run: |
+          set -euo pipefail
+          printf 'BUILDPROOF_ARTIFACT_ID=%s\n' "${BUILDPROOF_ARTIFACT_ID}"
+          printf 'BUILDPROOF_ARTIFACT_DIGEST=%s\n' "${BUILDPROOF_ARTIFACT_DIGEST}"
+          printf 'RELEASE_PASSPORT_ARTIFACT_ID=%s\n' "${RELEASE_PASSPORT_ARTIFACT_ID}"
+          printf 'RELEASE_PASSPORT_ARTIFACT_DIGEST=%s\n' "${RELEASE_PASSPORT_ARTIFACT_DIGEST}"
