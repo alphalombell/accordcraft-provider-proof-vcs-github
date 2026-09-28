@@ -1,0 +1,61 @@
+name: AccordCraft External CI Provider Proof
+
+on:
+  push:
+    branches:
+      - proof/17a2-github-actions-ci-a4
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: accordcraft-17a2-github-actions-ci-proof
+  cancel-in-progress: false
+
+jobs:
+  provider-proof:
+    name: AccordCraft GitHub Actions CI Proof
+    runs-on: ubuntu-latest
+    environment: accordcraft-ci-proof-approval
+    timeout-minutes: 10
+
+    steps:
+      - name: Capture canonical execution evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p proof-evidence
+          cat > proof-evidence/metadata.json <<EOF
+          {
+            "schema": "accordcraft.external-ci-provider-proof.v1",
+            "task_id": "AC-FSSOC-SETUP-17A.2",
+            "provider_id": "provider::github-actions::cicd",
+            "repository": "${GITHUB_REPOSITORY}",
+            "workflow": "${GITHUB_WORKFLOW}",
+            "workflow_ref": "${GITHUB_WORKFLOW_REF}",
+            "source_sha": "${GITHUB_SHA}",
+            "actor": "${GITHUB_ACTOR}",
+            "actor_id": "${GITHUB_ACTOR_ID}",
+            "run_id": "${GITHUB_RUN_ID}",
+            "run_number": "${GITHUB_RUN_NUMBER}",
+            "run_attempt": "${GITHUB_RUN_ATTEMPT}",
+            "job": "${GITHUB_JOB}",
+            "runner_name": "${RUNNER_NAME}",
+            "runner_os": "${RUNNER_OS}",
+            "runner_arch": "${RUNNER_ARCH}",
+            "production_authority": false,
+            "client_data": false
+          }
+          EOF
+          printf '%s\n' "${GITHUB_SHA}" > proof-evidence/source-sha.txt
+          printf '%s\n' "${GITHUB_WORKFLOW_REF}" > proof-evidence/workflow-ref.txt
+          sha256sum proof-evidence/metadata.json proof-evidence/source-sha.txt proof-evidence/workflow-ref.txt > proof-evidence/checksums.sha256
+
+      - name: Upload proof artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: accordcraft-17a2-ci-proof
+          path: proof-evidence/
+          if-no-files-found: error
+          retention-days: 1
